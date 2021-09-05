@@ -1,17 +1,17 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
+import { ArenaLadderQuery } from './arena-ladder.dto';
 import { ArenaLadderService } from './arena-ladder.service';
 
 @Controller()
 export class ArenaLadderController {
-
     constructor(private arenaLadderService: ArenaLadderService) {}
 
-    @Get('ladder')
-    async getBracket(
-        @Query('bracket') bracket,
-        @Query('region') region,
-        @Query('season') season,
-    ) {
-        return this.arenaLadderService.getBracket(bracket, region, season);
+    @Get('leaderboard')
+    async getBracket(@Query(ValidationPipe) queryParams: ArenaLadderQuery ) {
+        return this.arenaLadderService.getBracket(
+            queryParams.bracket,
+            queryParams.region,
+            queryParams.season,
+        );
     }
 }

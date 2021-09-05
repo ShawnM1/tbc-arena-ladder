@@ -11,7 +11,7 @@ export class ArenaLadderService {
         private tokenProviderService: TokenProviderService,
     ) {}
 
-    public async getBracket(bracket: string, region: string, season: string) {
+    public async getBracket(bracket: string, region: number, season: number) {
         const url =
             BASE_URL +
             `pvp-region/${region}/pvp-season/${season}/pvp-leaderboard/${bracket}?namespace=dynamic-classic-us&region=us`;
