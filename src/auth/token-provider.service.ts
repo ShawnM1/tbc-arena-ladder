@@ -16,6 +16,7 @@ export class TokenProviderService {
 
     async getToken(): Promise<string> {
         if (this.isExpired) {
+            console.log('GETTING TOKEN')
             const tokenToEncode = `${this.configService.get('BLIZZARD_CLIENT_ID',)}:${this.configService.get('BLIZZARD_CLIENT_SECRET')}`
             const token = Buffer.from(tokenToEncode).toString('base64');
             this.token = await this.httpService.post(URL, null, {
