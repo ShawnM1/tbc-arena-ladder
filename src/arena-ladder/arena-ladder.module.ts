@@ -1,10 +1,10 @@
-import { HttpModule, Module } from "@nestjs/common";
+import { CacheModule, HttpModule, Module } from "@nestjs/common";
 import { AuthModule } from "src/auth/auth.module";
 import { ArenaLadderController } from "./arena-ladder.controller";
 import { ArenaLadderService } from "./arena-ladder.service";
 
 @Module({
-    imports: [AuthModule, HttpModule],
+    imports: [AuthModule, HttpModule, CacheModule.register()],
     controllers:[ArenaLadderController],
     providers:[ArenaLadderService]
 })
