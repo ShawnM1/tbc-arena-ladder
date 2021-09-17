@@ -32,6 +32,7 @@ export class TokenProviderService {
             ).toPromise()
             this.setExpiration(this.token.expires_in)
         }
+        console.log(`Token ${this.token}`)
         return this.token.access_token;
     }
 
