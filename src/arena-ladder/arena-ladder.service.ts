@@ -43,5 +43,4 @@ export class ArenaLadderService {
         const ladder  = await this.getBracketRestCall(arenaQueryParams)
         return new ArenaLadder(ladder, arenaQueryParams)
     }
-
 }

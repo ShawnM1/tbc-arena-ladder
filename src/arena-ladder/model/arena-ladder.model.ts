@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { ArenaLadderQuery } from '../arena-ladder.dto';
-import { PlayableClassType, PlayableRaceType } from './character.interface';
+import { PlayableClassType } from './character.interface';
 import { FactionType, TeamEntry } from './team-entry.interface';
 
 export class ArenaLadder {
@@ -17,32 +17,20 @@ export class ArenaLadder {
     }
 
     private filter(arenaLadderQuery: ArenaLadderQuery) {
-        this.entries = this.filterByPlayableClass(arenaLadderQuery.playableClass)
-        this.entries = this.filterByPlayableRace(arenaLadderQuery.playableRace)
         this.entries = this.filterByRealmName(arenaLadderQuery.realm)
         this.entries = this.filterByFaction(arenaLadderQuery.faction)
+        this.entries = this.filterByPlayableClass(arenaLadderQuery.playableClasses)
     }
 
-    private filterByPlayableClass(playableClassType: PlayableClassType): TeamEntry[] {
-        return playableClassType ? this.entries.filter(entry =>
-            entry?.team?.members?.some(
-                member =>
-                    (member.character.playable_class.id == playableClassType),
-            ),
-        ) : this.entries
+    private filterByPlayableClass(playableClassTypes: PlayableClassType[]): TeamEntry[] {
+        return playableClassTypes ? this.entries.filter(entry => {
+            const memberClasses = entry?.team?.members?.map(m => m.character.playable_class.id)
+            return playableClassTypes.every(val => memberClasses?.includes(val))
+        }) : this.entries
     }
 
     private filterByRealmName(realmName: string) {
         return realmName ? this.entries.filter(entry => entry.team.realm.slug === realmName) : this.entries
-    }
-
-    private filterByPlayableRace(playableRaceType: PlayableRaceType) {
-        return playableRaceType ? this.entries.filter(entry =>
-            entry?.team?.members?.some(
-                member =>
-                    (member.character.playable_race.id == playableRaceType),
-            ),
-        ) : this.entries
     }
 
     private filterByFaction(factionType: FactionType) {

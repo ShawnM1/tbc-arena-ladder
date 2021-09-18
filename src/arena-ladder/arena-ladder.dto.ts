@@ -1,5 +1,5 @@
-import { Type } from "class-transformer"
-import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { Transform, Type } from "class-transformer"
+import { IsArray, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator"
 import { PlayableClassType, PlayableRaceType } from "./model/character.interface"
 import { FactionType } from "./model/team-entry.interface"
 
@@ -25,17 +25,12 @@ export class ArenaLadderQuery {
     season: number
 
     @IsOptional()
-    @IsInt()
-    @Type(() => Number)
-    playableClass: PlayableClassType
+    @Transform(({value}) => value.split(',').map(v => Number(v)))
+    @IsEnum(PlayableClassType, { each: true })
+    playableClasses: PlayableClassType[]
 
     @IsOptional()
-    @IsInt()
-    @Type(() => Number)
-    playableRace: PlayableRaceType
-
-    @IsOptional()
-    @IsString()
+    @IsEnum(FactionType)
     faction: FactionType
 
     @IsOptional()

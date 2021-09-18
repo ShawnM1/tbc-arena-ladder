@@ -17,13 +17,9 @@ describe('ArenaLadderModel', () => {
     }) 
 
     it ('should filter by class', () => {
-        arenaData = new ArenaLadder(require('../arena-ladder.data.json'), { playableClass: PlayableClassType.PALADIN} as ArenaLadderQuery)
-        expect(arenaData.entries.length).toEqual(0)
-    })
-
-    it ('should filter by race', () => {
-        arenaData = new ArenaLadder(require('../arena-ladder.data.json'), { playableRace: PlayableRaceType.HUMAN} as ArenaLadderQuery)
-        expect(arenaData.entries.length).toEqual(3)
+        const param = [1, 2]
+        arenaData = new ArenaLadder(require('../arena-ladder.data.json'), { playableClasses: param} as ArenaLadderQuery)
+        expect(arenaData.entries.length).toEqual(1)
     })
 
     it ('should filter by realm name', () => {
