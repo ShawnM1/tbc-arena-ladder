@@ -35,7 +35,7 @@ export class ArenaLadderService {
             map(response => response.data)
         ).toPromise()
 
-        await this.cacheManager.set(cacheKey, bracketData, { ttl: 3600})
+        await this.cacheManager.set(cacheKey, bracketData, { ttl: 3600 })
         return bracketData
     }
 

@@ -1,8 +1,8 @@
-import { HttpModule, Module } from "@nestjs/common";
+import { CacheModule, HttpModule, Module } from "@nestjs/common";
 import { TokenProviderService } from "./token-provider.service";
 
 @Module({
-    imports:[HttpModule],
+    imports:[HttpModule, CacheModule.register()],
     providers:[TokenProviderService],
     exports:[TokenProviderService]
 })
