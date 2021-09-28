@@ -11,8 +11,7 @@ const BASE_URL = 'https://us.api.blizzard.com/data/wow/';
 export class ArenaLadderService {
     constructor(
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
-        private httpService: HttpService,
-        private tokenProviderService: TokenProviderService,
+        private httpService: HttpService
     ) {}
 
     private async getBracketRestCall(arenaQueryParams: ArenaLadderQuery): Promise<any>{
@@ -24,9 +23,9 @@ export class ArenaLadderService {
 
         const url = BASE_URL + `pvp-region/${arenaQueryParams.region}/pvp-season/${arenaQueryParams.season}/pvp-leaderboard/${arenaQueryParams.bracket}?namespace=dynamic-classic-us&region=us`;
         const bracketData = await this.httpService.get(url, {
-            headers: {
-                Authorization: 'Bearer ' + await this.tokenProviderService.getToken(),
-            },
+            // headers: {
+            //     Authorization: 'Bearer ' + await this.tokenProviderService.getToken(),
+            // },
         }).pipe(
             catchError(err => {
                 console.log(err)
