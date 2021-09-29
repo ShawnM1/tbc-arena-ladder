@@ -22,11 +22,7 @@ export class ArenaLadderService {
         }
 
         const url = BASE_URL + `pvp-region/${arenaQueryParams.region}/pvp-season/${arenaQueryParams.season}/pvp-leaderboard/${arenaQueryParams.bracket}?namespace=dynamic-classic-us&region=us`;
-        const bracketData = await this.httpService.get(url, {
-            // headers: {
-            //     Authorization: 'Bearer ' + await this.tokenProviderService.getToken(),
-            // },
-        }).pipe(
+        const bracketData = await this.httpService.get(url).pipe(
             catchError(err => {
                 console.log(err)
                 throw new InternalServerErrorException(err)
